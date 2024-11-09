@@ -50,6 +50,10 @@ def login_callback():
     print(f"session = {session}")
 
     user_info = google.get('https://www.googleapis.com/oauth2/v3/userinfo').json()
+    session['current_user'] = user_info
+
+    print(f"User info = {user_info}")
+
     return 'Logged in as: ' + user_info['email']
 
 
@@ -70,15 +74,23 @@ def logout():
 @app.route("/api/user/current")
 def get_current_user():
     token = session.get('google_oauth_token')
+    print(f"Session token: {token}")
 
-    print(f"session token = {token}")
+    if token and token.get("access_token"):
+        access_token = token["access_token"]
+        print(f"Using access token: {access_token}")
 
-    if token:
-        print(f"access_token ===== {token["access_token"]}")
-        
-        current_user = google.get('https://www.googleapis.com/oauth2/v3/userinfo',
-                                  headers={'Authorization': f'Bearer {token["access_token"]}'}).json()
-        return {"current user info": current_user}, 200
+        response = google.get(
+            'https://www.googleapis.com/oauth2/v3/userinfo',
+            token={"access_token": access_token}
+        )
+
+        if response.ok:
+            current_user = response.json()
+            return {"current user info": current_user}, 200
+        else:
+            print("Error retrieving user info:", response.text)
+            return {"Error": "Failed to retrieve user info"}, 400
 
     return {"Unauthorized": "No user is currently signed in"}, 401
 

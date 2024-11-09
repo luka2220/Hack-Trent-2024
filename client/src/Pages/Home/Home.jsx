@@ -1,7 +1,9 @@
+import Recording from "../../recording";
+import "./home.css"
 function Home() {
   return (
-    <div>
-      <h1>This is the home page after authentication</h1>
+    <div className="home-body">
+      <Recording/>
     </div>
   );
 }

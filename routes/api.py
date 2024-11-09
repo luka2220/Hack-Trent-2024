@@ -1,4 +1,5 @@
-from flask import url_for, session, Blueprint, current_app, redirect
+from flask import url_for, session, Blueprint, current_app, request, jsonify
+import os
 
 api_bp = Blueprint("api", __name__)
 
@@ -25,3 +26,26 @@ def get_current_user():
             return {"Error": "Failed to retrieve user info"}, 400
 
     return {"Unauthorized": "No user is currently signed in"}, 401
+
+
+@api_bp.route("/api/upload/audio", methods=["POST"])
+def upload_audio():
+    if "file" not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    allowed_extensions = {"wav", "mp3"}
+    file_extension = file.filename.rsplit(".", 1)[1].lower()
+
+    if file_extension not in allowed_extensions:
+        return jsonify({"error": "Invalid file format. Only .wav and .mp3 are allowed."}), 400
+
+    print(f'file ={file}')
+
+    # Call model #
+
+    return jsonify({"message": "File uploaded successfully!"}), 200

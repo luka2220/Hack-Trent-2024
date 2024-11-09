@@ -1,5 +1,6 @@
 import sqlalchemy as sa
-from main import db
+from sqlalchemy.dialects.sqlite import JSON
+from extensions import db
 
 
 class User(db.Model):
@@ -7,6 +8,7 @@ class User(db.Model):
     email = sa.Column(sa.String(120), index=True, unique=True)
     name = sa.Column(sa.String(120), index=True)
     profile_picture = sa.Column(sa.String(120), index=True)
+    languages = db.Column(JSON)
 
     def __repr__(self):
         return f'<User {self.name}>'

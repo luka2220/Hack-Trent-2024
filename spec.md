@@ -2,4 +2,5 @@
     * Authentication system for users
     * Microphone/Speech/Audio upload
     * AI model for analyzing speech
-    * Hardware components 
+    * Servo motors hardware component (optional)
+    * Breadboard (optional)

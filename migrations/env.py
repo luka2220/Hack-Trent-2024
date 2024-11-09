@@ -5,6 +5,12 @@ from flask import current_app
 
 from alembic import context
 
+from main import db  # Import the db object
+from models.db import User  # Import your models here, especially the ones you want to track
+
+# Set the target metadata to your models' metadata
+target_metadata = db.metadata
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -38,6 +44,7 @@ def get_engine_url():
 # target_metadata = mymodel.Base.metadata
 config.set_main_option('sqlalchemy.url', get_engine_url())
 target_db = current_app.extensions['migrate'].db
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -11,6 +11,8 @@
 - python -m pip install -r requirements.txt
 - create the .env file
 
-### Performing database migrations
+### Performing database operations
 
-- flask --app main.py db init
+- *(Create a migration repo)*: flask --app main.py db init
+- *(Create a db migration)*: flask --app main.py db migrate -m "users table"
+- *(Apply the migration changes to the db)*: flask --app main.py db upgrade

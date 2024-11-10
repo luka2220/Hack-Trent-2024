@@ -2,8 +2,6 @@
 
 ## Server Documentation
 
-***
-
 * The server code lives in the root directory with the main entry point in main.py
 * It is a flask application with a sqlite database named hacktrent.db in `./db`
 * The server's development environment is in a docker container as well, defined in the Dockerfile
@@ -46,8 +44,6 @@
 - *(Apply the migration changes to the db)*: flask --app main:create_app db upgrade
 
 ## Client Documentation
-
-***
 
 * The client code lives inside the client directory
 * With the server code running open another terminal session to get started

@@ -11,7 +11,12 @@ auth_bp = Blueprint("auth", __name__)
 # Routes
 @auth_bp.route("/")
 def home():
-    return {"message": "home route"}, 200
+    return {"message": "home"}, 200
+
+
+@auth_bp.route("/home")
+def auth_home():
+    return {"message": "home authenticated"}, 200
 
 
 @auth_bp.route("/login")
@@ -48,7 +53,7 @@ def login_callback():
 
     session["user_id"] = user.id
 
-    redirect_uri = url_for("auth.home", _external=True)
+    redirect_uri = url_for("auth.auth_home", _external=True)
     return redirect(redirect_uri)
 
 
@@ -62,5 +67,4 @@ def logout():
         requests.post(revocation_url, params={'token': token['access_token']})
 
     session.pop('google_oauth_token', None)
-    # return redirect(url_for('home'))
-    return {'message': "logged out"}
+    return redirect(url_for('auth.home'))

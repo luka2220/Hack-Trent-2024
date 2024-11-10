@@ -24,7 +24,7 @@ export default function Login(){
       <div className="login-sections">
       <section className="login-sec1">
         <h1>Welcome To Vocalytics!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ipsam laborum consequuntur illo atque illum vel? Et sit odio quas!</p>
+        <p>AI-powered vocal analytics designed to support and empower individuals with speech impediments and disabilities through real-time insights and personalized progress tracking.</p>
       <div className="buttons">
       <section className="google">
                 <div onClick={googlesignin}>

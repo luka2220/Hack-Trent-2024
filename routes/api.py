@@ -1,4 +1,6 @@
 from flask import url_for, session, Blueprint, current_app, request, jsonify
+from speechmodel.speech_pronounciation_model import SpeechToText
+
 import os
 
 api_bp = Blueprint("api", __name__)
@@ -48,12 +50,14 @@ def upload_audio():
 
     # Call model #
     # Test model response
-    error_indicies = [1, 2, 3, 6, 7]
-    scnentence = ["Hello", "this", "is", "how", "to", "build", "an", "application", ",", "thank", "you"]
+    instance = SpeechToText(file)
+    sentence, error_indicies = instance.model_evaluate()
+    # error_indicies = [1, 2, 3, 6, 7]
+    # scnentence = ["Hello", "this", "is", "how", "to", "build", "an", "application", ",", "thank", "you"]
 
     return jsonify({
         "incorrect": error_indicies,
-        "words": scnentence
+        "words": sentence
     }), 200
 
 # @api_bp.route("/api/get/phrase", methods=["POST"])

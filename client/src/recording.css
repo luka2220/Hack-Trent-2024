@@ -69,6 +69,7 @@
     align-items: center;
     justify-content: space-between;
     padding-bottom: 30px;
+    overflow: scroll;
 }
 .section-3 h4{
     font-size: 24px;

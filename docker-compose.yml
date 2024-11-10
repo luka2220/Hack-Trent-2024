@@ -7,8 +7,7 @@ services:
       - FLASK_APP=main.py
       - FLASK_ENV=development
       - DATABASE_URL=sqlite:////app/db/hacktrent.db  # Updated for SQLite
-    depends_on:
-      - db
+  
     networks:
       - app_network
     ports:
@@ -22,19 +21,4 @@ networks:
   app_network:
     driver: bridge
 
-  pytorch:
-    build:
-      context: .
-      dockerfile: docker/dockerfiles/model.dockerfile
-    privileged: true  # Corrected typo here
-    user: root
-    environment:
-      - TERM=xterm-256color
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix  # Mount the X11 socket
-      - /dev/shm:/dev/shm
-    container_name: pytorch
-    entrypoint: [ "/root/pytorch.sh", "pytorch" ]
-    network_mode: host
-    ipc: host
-    restart: on-failure
+ 

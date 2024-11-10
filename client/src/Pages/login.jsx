@@ -1,4 +1,4 @@
-import AnchorButton from "../components/AnchorButton.jsx";
+// import AnchorButton from "../components/AnchorButton.jsx";
 import { useEffect } from "react";
 import img1 from "../assets/login-img.jpg"
 import "./login.css"
@@ -32,10 +32,10 @@ export default function Login(){
                     <button>Sign in with Google</button>
                 </div>
             </section>
-        <AnchorButton
+        {/* <AnchorButton
           reference="Home"
           text="login"
-        />
+        /> */}
       </div>
       </section>
 

@@ -3,6 +3,12 @@ import img1 from "../assets/login-img.jpg"
 import "./login.css"
 import google from "../assets/search.png"
 export default function Login(){
+
+  function googlesignin(){
+    window.location.href = "http://localhost:8001/login";
+}
+
+
     return <div className="login-body">
       {/* <h1>Hack Trent 24</h1> */}
       <div className="login-sections">
@@ -11,15 +17,15 @@ export default function Login(){
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ipsam laborum consequuntur illo atque illum vel? Et sit odio quas!</p>
       <div className="buttons">
       <section className="google">
-                <div>
+                <div onClick={googlesignin}>
                     <img src={google} alt="" />
                     <button>Sign in with Google</button>
                 </div>
             </section>
-        <AnchorButton
+        {/* <AnchorButton
           reference="Home"
           text="login"
-        />
+        /> */}
       </div>
       </section>
 

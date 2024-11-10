@@ -1,23 +1,29 @@
-from dotenv import load_dotenv
+from flask import Flask, redirect, url_for
+from flask_oauthlib.client import OAuth
 import os
+from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
-# Initialize google oauth
-def register_google_oauth(oauth):
-    google_oauth_client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
-    google_oauth_secret = os.getenv("GOOGLE_OAUTH_SECRET")
+# Initialize Flask app and OAuth
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+oauth = OAuth(app)
 
-    return oauth.register(
-        name='google',
-        client_id=google_oauth_client_id,
-        client_secret=google_oauth_secret,
-        authorize_url='https://accounts.google.com/o/oauth2/auth',
-        authorize_params=None,
-        access_token_url='https://accounts.google.com/o/oauth2/token',
-        access_token_params=None,
-        userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
-        client_kwargs={'scope': 'openid profile email', 'response_type': 'code',
-                       'redirect_uri': 'http://127.0.0.1:8001/login/callback'},
-        jwks_uri="https://www.googleapis.com/oauth2/v3/certs"
-    )
+google = oauth.remote_app(
+    'google',
+    consumer_key=os.getenv("GOOGLE_OAUTH_CLIENT_ID"),
+    consumer_secret=os.getenv("GOOGLE_OAUTH_SECRET"),
+    request_token_params={
+        'scope': 'email',
+    },
+    base_url='https://www.googleapis.com/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+)
+
+
+

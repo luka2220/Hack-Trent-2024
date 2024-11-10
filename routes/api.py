@@ -47,9 +47,14 @@ def upload_audio():
     print(f'file ={file}')
 
     # Call model #
+    # Test model response
+    error_indicies = [1, 2, 3, 6, 7]
+    scnentence = ["Hello", "this", "is", "how", "to", "build", "an", "application", ",", "thank", "you"]
 
-    return jsonify({"message": "File uploaded successfully!"}), 200
+    return jsonify({
+        "incorrect": error_indicies,
+        "words": scnentence
+    }), 200
 
 # @api_bp.route("/api/get/phrase", methods=["POST"])
 # def return_words(phrase, wrong_words):
-

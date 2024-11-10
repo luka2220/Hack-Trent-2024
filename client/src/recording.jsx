@@ -1,10 +1,10 @@
-// Recording.js
 import { useState } from "react";
 import "./recording.css";
 import AudioRecorder from "./components/AudioRecorder";
 
 export default function Recording() {
   const [recordings, setRecordings] = useState([]);
+  const [recording, setRecording] = useState(false);
 
   const deleteRecording = (index) => {
     setRecordings((prevRecordings) => prevRecordings.filter((_, i) => i !== index));
@@ -58,10 +58,15 @@ export default function Recording() {
       </section>
 
       <section className="section-2 section">
-        <div className="profile"></div>
+        <div className={`profile ${recording ? "wave" : ""}`}></div> {/* Conditionally add "recording" class */}
 
         <section className="recording-action">
-          <AudioRecorder recordings={recordings} setRecordings={setRecordings} />
+          <AudioRecorder
+            recordings={recordings}
+            setRecordings={setRecordings}
+            recording={recording} // Pass down the recording state
+            setRecording={setRecording} // Pass down the setRecording function
+          />
         </section>
       </section>
 

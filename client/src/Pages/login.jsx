@@ -1,12 +1,22 @@
 import AnchorButton from "../components/AnchorButton.jsx";
+import { useEffect } from "react";
 import img1 from "../assets/login-img.jpg"
 import "./login.css"
 import google from "../assets/search.png"
 export default function Login(){
 
+  useEffect(() => {
+    // Check if the user is already authenticated by checking session or token
+    const user = sessionStorage.getItem("user_id"); // Or use localStorage or any session management method
+    if (user) {
+      window.location.href = "/home"; // Redirect to home page if already authenticated
+    }
+  }, []);
+
   function googlesignin(){
     window.location.href = "http://localhost:8001/login";
 }
+
 
 
     return <div className="login-body">
@@ -22,10 +32,10 @@ export default function Login(){
                     <button>Sign in with Google</button>
                 </div>
             </section>
-        {/* <AnchorButton
+        <AnchorButton
           reference="Home"
           text="login"
-        /> */}
+        />
       </div>
       </section>
 

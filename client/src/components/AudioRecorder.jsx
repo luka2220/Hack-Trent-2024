@@ -1,14 +1,32 @@
-// AudioRecorder.js
 import { useState, useRef } from "react";
 import uploadicon from "../assets/upload.png";
 import stop from "../assets/stop-button.png";
 import record from "../assets/microphone.png";
 import "./AudioRecorder.css";
 
-const AudioRecorder = ({ recordings, setRecordings }) => {
-  const [recording, setRecording] = useState(false);
+const AudioRecorder = ({ recordings, setRecordings, recording, setRecording }) => { 
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const audioChunks = useRef([]);
+
+  const uploadAudio = async (audioBlob) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", audioBlob, "recording.wav");
+
+      const response = await fetch("http://127.0.0.1:8001/api/upload/audio", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.log("Failed to upload audio.");
+      }
+    } catch (error) {
+      console.error("Error uploading audio:", error);
+    }
+  };
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -24,19 +42,23 @@ const AudioRecorder = ({ recordings, setRecordings }) => {
       const recordingName = `Recording ${recordings.length + 1}`;
       setRecordings((prevRecordings) => [
         ...prevRecordings,
-        { url: audioURL, name: recordingName }
+        { url: audioURL, name: recordingName },
       ]);
       audioChunks.current = [];
     };
 
     recorder.start();
     setMediaRecorder(recorder);
-    setRecording(true);
+    setRecording(true);  
   };
 
   const stopRecording = () => {
     mediaRecorder.stop();
-    setRecording(false);
+    setRecording(false); 
+
+    const audioBlob = new Blob(audioChunks.current, { type: "audio/wav" });
+
+    uploadAudio(audioBlob);
   };
 
   const handleFileUpload = (event) => {
@@ -50,7 +72,7 @@ const AudioRecorder = ({ recordings, setRecordings }) => {
       const audioURL = URL.createObjectURL(file);
       setRecordings((prevRecordings) => [
         ...prevRecordings,
-        { url: audioURL, name: shortFileName }
+        { url: audioURL, name: shortFileName },
       ]);
     } else {
       alert("Please upload a valid MP3 or WAV file");
@@ -60,9 +82,13 @@ const AudioRecorder = ({ recordings, setRecordings }) => {
   return (
     <div className="record-actions">
       {recording ? (
-        <button onClick={stopRecording}><img src={stop} alt="Stop" /></button>
+        <button onClick={stopRecording}>
+          <img src={stop} alt="Stop" />
+        </button>
       ) : (
-        <button onClick={startRecording}><img src={record} alt="Record" /></button>
+        <button onClick={startRecording}>
+          <img src={record} alt="Record" />
+        </button>
       )}
 
       <div style={{ marginTop: "0px" }}>

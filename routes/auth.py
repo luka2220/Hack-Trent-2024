@@ -1,6 +1,9 @@
 from flask import Blueprint, url_for, session, current_app, redirect
 import requests
 
+from extensions import db
+from models.db import User
+
 # Define Blueprint
 auth_bp = Blueprint("auth", __name__)
 
@@ -27,7 +30,23 @@ def login_callback():
     user_info = current_app.google.get('https://www.googleapis.com/oauth2/v3/userinfo').json()
     session['current_user'] = user_info
 
-    # print(f"User info = {user_info}")
+    email = user_info.get("email")
+    name = user_info.get("name")
+    profile_picture = user_info.get("picture")
+
+    # Check if the user exists in the database
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        user = User(
+            email=email,
+            name=name,
+            profile_picture=profile_picture
+        )
+        db.session.add(user)
+        db.session.commit()
+        print(f'New user created: \n\tEmail: {user.email} \n\tName: {user.name}')
+
+    session["user_id"] = user.id
 
     return 'Logged in as: ' + user_info['email']
 

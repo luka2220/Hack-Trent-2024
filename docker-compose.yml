@@ -1,18 +1,26 @@
 services:
-  # backend:
-  #   build: .
-  #   environment:
-  #     - FLASK_APP=main.py
-  #     - FLASK_ENV=development
-  #     - DATABASE_URL=postgresql://example:example@db/example  # Adjust DB URL as needed
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - app_network
-  #   ports:
-  #     - "5000:5000"
-  #   volumes:
-  #     - .:/app  # Mounts the current directory into the container
+  backend:
+    build:
+      context: .
+      dockerfile: docker/dockerfiles/Dockerfile
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+      - DATABASE_URL=sqlite:////app/db/hacktrent.db  # Updated for SQLite
+    depends_on:
+      - db
+    networks:
+      - app_network
+    ports:
+      - "8001:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+networks:
+  app_network:
+    driver: bridge
 
   pytorch:
     build:
@@ -21,12 +29,12 @@ services:
     privileged: true  # Corrected typo here
     user: root
     environment:
-        - TERM=xterm-256color
+      - TERM=xterm-256color
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix  # Mount the X11 socket
       - /dev/shm:/dev/shm
     container_name: pytorch
-    entrypoint: ["/root/pytorch.sh", "pytorch"]
+    entrypoint: [ "/root/pytorch.sh", "pytorch" ]
     network_mode: host
     ipc: host
     restart: on-failure

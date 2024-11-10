@@ -102,7 +102,7 @@ export default function Recording() {
     ))}
   </h3>}
   <div className="error-container">
-  {!setAnalysis && <h2>ERRORS:-</h2>}
+  {analysis && <h2>ERRORS:-</h2>}
   {analysis && ( 
           <h2>{" "}  
             {analysis.incorrect.map((index ,i) => <li key={i} className="error-list">{analysis.words[index]}</li>)} 

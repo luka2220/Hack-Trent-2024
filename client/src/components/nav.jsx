@@ -1,5 +1,7 @@
 import { useState } from "react"
 import dropdownimg from "../assets/dropdown.png"
+import avatar from "../assets/user.png"
+
 import "./nav.css"
 export default function Nav(){
     const [dropdown,setDropdown]=useState(false)

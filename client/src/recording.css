@@ -1,0 +1,42 @@
+.recording-body{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    color: black;
+}
+.analysis-btn{
+    background-color: rgba(44, 44, 44, 1);
+    color: white;
+    border: none;
+    width: 324px;
+    height: 60px;
+    border-radius: 20px;
+    margin-top: 17px;
+}
+.section{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
+.section-2{
+    align-items: center;
+    justify-content: space-around;
+    }
+.profile{
+    background-color: grey;
+    border: 1px solid black;
+    width: 148px;
+    height: 148px;
+    border-radius: 100px;
+}
+.recording-action{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.icon{
+    width: 48px;
+    height: 48px;
+}

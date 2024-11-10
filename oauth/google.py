@@ -1,7 +1,5 @@
 import os
 
-
-# Initialize google oauth
 def register_google_oauth(oauth):
     google_oauth_client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
     google_oauth_secret = os.getenv("GOOGLE_OAUTH_SECRET")
@@ -19,3 +17,6 @@ def register_google_oauth(oauth):
                        'redirect_uri': 'http://127.0.0.1:8001/login/callback'},
         jwks_uri="https://www.googleapis.com/oauth2/v3/certs"
     )
+
+
+

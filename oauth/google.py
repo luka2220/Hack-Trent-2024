@@ -1,5 +1,7 @@
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
 # Initialize google oauth
 def register_google_oauth(oauth):

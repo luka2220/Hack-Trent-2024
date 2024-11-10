@@ -49,3 +49,7 @@ def upload_audio():
     # Call model #
 
     return jsonify({"message": "File uploaded successfully!"}), 200
+
+# @api_bp.route("/api/get/phrase", methods=["POST"])
+# def return_words(phrase, wrong_words):
+

@@ -1,0 +1,32 @@
+services:
+  # backend:
+  #   build: .
+  #   environment:
+  #     - FLASK_APP=main.py
+  #     - FLASK_ENV=development
+  #     - DATABASE_URL=postgresql://example:example@db/example  # Adjust DB URL as needed
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - app_network
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app  # Mounts the current directory into the container
+
+  pytorch:
+    build:
+      context: .
+      dockerfile: docker/dockerfiles/model.dockerfile
+    privileged: true  # Corrected typo here
+    user: root
+    environment:
+        - TERM=xterm-256color
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix  # Mount the X11 socket
+      - /dev/shm:/dev/shm
+    container_name: pytorch
+    entrypoint: ["/root/pytorch.sh", "pytorch"]
+    network_mode: host
+    ipc: host
+    restart: on-failure

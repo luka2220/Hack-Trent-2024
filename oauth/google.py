@@ -18,6 +18,6 @@ def register_google_oauth(oauth):
         access_token_params=None,
         userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
         client_kwargs={'scope': 'openid profile email', 'response_type': 'code',
-                       'redirect_uri': 'http://127.0.0.1:8000/login/callback'},
+                       'redirect_uri': 'http://127.0.0.1:8001/login/callback'},
         jwks_uri="https://www.googleapis.com/oauth2/v3/certs"
     )

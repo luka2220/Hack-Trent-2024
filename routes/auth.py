@@ -53,7 +53,7 @@ def login_callback():
 
     session["user_id"] = user.id
 
-    redirect_uri = url_for("auth.auth_home", _external=True)
+    redirect_uri = "http://localhost:5173/home"
     return redirect(redirect_uri)
 
 
@@ -67,4 +67,4 @@ def logout():
         requests.post(revocation_url, params={'token': token['access_token']})
 
     session.pop('google_oauth_token', None)
-    return redirect(url_for('auth.home'))
+    return redirect('http://localhost:5173')

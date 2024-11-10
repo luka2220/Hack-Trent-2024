@@ -19,7 +19,9 @@ const AudioRecorder = ({recordings, setRecordings, recording, setRecording}) => 
             });
 
             if (response.ok) {
-                console.log(response.json());
+                const data= await response.json()
+                console.log(data);
+                localStorage.setItem("response",JSON.stringify(data))
             } else {
                 console.log("Failed to upload audio.");
             }

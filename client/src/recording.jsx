@@ -5,16 +5,30 @@ import AudioRecorder from "./components/AudioRecorder";
 export default function Recording() {
   const [recordings, setRecordings] = useState([]);
   const [recording, setRecording] = useState(false);
+  const [analysis,setAnalysis]=useState(null);
 
   const deleteRecording = (index) => {
     setRecordings((prevRecordings) => prevRecordings.filter((_, i) => i !== index));
   };
 
+  function handleAnalysis(){
+    const responsedata=localStorage.getItem("response")
+    if(responsedata){
+      var data=JSON.parse(responsedata)
+      console.log(data);
+      setAnalysis(data)
+    }
+  }
+
+  function handleClearAnalysis() {
+    setAnalysis(null); 
+  }
+
   return (
     <div className="recording-body">
       <section className="section-1 section">
         <div>
-          <button className="analysis-btn">Analyze audio</button>
+          <button className="analysis-btn" onClick={handleAnalysis}>Analyze audio</button>
         </div>
         <div>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" }}>
@@ -29,6 +43,8 @@ export default function Recording() {
                   borderRadius: "5px",
                   width: "90%",
                   justifyContent: "space-between",
+                  alignSelf: "center"
+
                 }}
               >
                 {/* Audio player */}
@@ -71,8 +87,32 @@ export default function Recording() {
       </section>
 
       <section className="section section-3">
-        <h4>Here are the words you missed</h4>
-      </section>
+        <h4>SPEECH ANALYSIS</h4>
+        {analysis &&   <h3>
+    Speech:-{" "}
+    {analysis.words.map((word, index) => (
+      <span
+        key={index}
+        style={{
+          color: analysis.incorrect.includes(index) ? "red" : "black", // red for incorrect words
+        }}
+      >
+        {word}{" "}
+      </span>
+    ))}
+  </h3>}
+  <div className="error-container">
+  {!setAnalysis && <h2>ERRORS:-</h2>}
+  {analysis && ( 
+          <h2>{" "}  
+            {analysis.incorrect.map((index ,i) => <li key={i} className="error-list">{analysis.words[index]}</li>)} 
+            </h2>
+)} 
+  </div>
+
+  <button className="analysis-btn" onClick={handleClearAnalysis}>Clear Analysis</button>
+
+       </section>
     </div>
   );
 }

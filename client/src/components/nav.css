@@ -13,6 +13,11 @@
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
+.nav-action h2{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 .nav-dropdown{
     display: flex;
     align-items: center;
@@ -20,7 +25,7 @@
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
-.nav-action img{
+.dropdown-img{
     max-width: 100%;
     height: 1rem;
     cursor: pointer;
@@ -34,4 +39,8 @@
     margin-top: -50px;
     font-weight: 600;
     cursor: pointer;
+}
+.avatar-img{
+    width: max-content;
+    height: 2rem;
 }

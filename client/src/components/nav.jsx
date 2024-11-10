@@ -1,5 +1,6 @@
 import { useState } from "react"
 import dropdownimg from "../assets/dropdown.png"
+import avatar from "../assets/user.png"
 import "./nav.css"
 export default function Nav(){
     const [dropdown,setDropdown]=useState(false)
@@ -40,8 +41,8 @@ export default function Nav(){
         <h1>Vocalytics</h1>
         <div className="nav-action">
             <div className="nav-dropdown">
-            <h2>Welcome userdata</h2>
-            <img src={dropdownimg} alt="" onClick={handleDropdown}/>
+            <h2>Welcome <img src={avatar} alt="" className="avatar-img"/></h2>
+            <img src={dropdownimg} alt="" onClick={handleDropdown} className="dropdown-img"/>
             </div>
             {dropdown && <h4>Logout</h4>}
         </div>

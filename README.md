@@ -32,7 +32,7 @@
 
 *Run the Server Container*
 
-- `docker build -t server-image .`
+- `docker build -t server-image -f .\docker\dockerfiles\Dockerfile .`
 - `docker run -d -p 8001:8000 -v /db/hacktrent.db --name hack-trent-server-app server-image`
 
 *Run the Model Container*

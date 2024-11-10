@@ -1,49 +1,60 @@
-import { useState } from "react"
-import dropdownimg from "../assets/dropdown.png"
-import "./nav.css"
-export default function Nav(){
-    const [dropdown,setDropdown]=useState(false)
+import { useEffect, useState } from "react";
+import dropdownimg from "../assets/dropdown.png";
+import "./nav.css";
+export default function Nav() {
+  const [dropdown, setDropdown] = useState(false);
 
-    function handleDropdown(){
-       setDropdown(!dropdown)
-    }
-//     const [userData, setUserData] = useState(null);
-//   const [error, setError] = useState(null);
+  function handleDropdown() {
+    setDropdown(!dropdown);
+  }
 
-//   useEffect(() => {
-//     // Make the API call to get user data
-//     fetch('http://127.0.0.1:8001/api/user/current', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer your-auth-token'
-//       }
-//     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('Network response was not ok');
-//         }
-//         return response.json();
-//       })
-//       .then(data => {
-//         setUserData(data);
-//       })
-//       .catch(error => {
-//         setError(error.message);
-//       });
-//   }, []);
+  //   const [userData, setUserData] = useState(null);
+  //   const [error, setError] = useState(null);
 
-//   if (error) return <div>Error: {error}</div>;
-//   if (!userData) return <div>Loading...</div>;
+  //   useEffect(() => {
+  //     // Make the API call to get user data
+  //     fetch("http://localhost:8001/api/user/current", {
+  //       mode: "cors",
+  //       method: "GET",
+  //       //   headers: {
+  //       //     "Content-Type": "application/json",
+  //       //     Authorization: "Bearer your-auth-token",
+  //       //   },
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           throw new Error("Network response was not ok");
+  //         }
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setUserData(data);
+  //       })
+  //       .catch((error) => {
+  //         setError(error.message);
+  //       });
+  //   }, []);
 
-    return <div className="nav-body">
-        <h1>Vocalytics</h1>
-        <div className="nav-action">
-            <div className="nav-dropdown">
-            <h2>Welcome userdata</h2>
-            <img src={dropdownimg} alt="" onClick={handleDropdown}/>
-            </div>
-            {dropdown && <h4>Logout</h4>}
+  //   if (error) return <div>Error: {error}</div>;
+  //   if (!userData) return <div>Loading...</div>;
+
+  function handlelogout() {
+    window.location.href = "http://127.0.0.1:8001/logout";
+  }
+  return (
+    <div className="nav-body">
+      <h1>Vocalytics</h1>
+      <div className="nav-action">
+        <div className="nav-dropdown">
+          <h2>Welcome userdata</h2>
+          <img
+            src={dropdownimg}
+            alt=""
+            onClick={handleDropdown}
+          />
         </div>
+        {dropdown && <h4 onClick={handlelogout}>Logout</h4>}
+      </div>
     </div>
+  );
 }

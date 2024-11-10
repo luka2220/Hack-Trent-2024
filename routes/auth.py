@@ -48,7 +48,8 @@ def login_callback():
 
     session["user_id"] = user.id
 
-    return 'Logged in as: ' + user_info['email']
+    redirect_uri = url_for("auth.home", _external=True)
+    return redirect(redirect_uri)
 
 
 @auth_bp.route("/logout")
